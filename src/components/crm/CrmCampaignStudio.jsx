@@ -36,47 +36,62 @@ export default function CrmCampaignStudio() {
   };
 
   const handleGenerate = async () => {
-    setCompiling(true);
-    setCampaign(null);
+  setCompiling(true);
+  setCampaign(null);
 
+  try {
+
+    // Wake up Channel Service
     try {
-      const res = await crmApi.generateCampaign(goal, audience, channel);
-      const camp = res.campaign;
-      const copyData = res.copy;
-
-      setCampaign({
-        id: camp.id,
-        campaignName: camp.campaign_name,
-        copy: copyData.message_body || (channel === 'whatsapp'
-          ? copyData.whatsapp_message
-          : channel === 'email'
-            ? copyData.email_content
-            : copyData.sms_content),
-        timing: copyData.timing || 'Thursday at 2:00 PM',
-        timingReason: copyData.timing_reason || 'Peak activity window',
-        timingSource: copyData.timing_source || 'benchmark',
-        recommendedScheduledTime: copyData.recommended_scheduled_time || null,
-        openRate: copyData.predicted_open_rate || '75%',
-        ctr: copyData.predicted_ctr || '15%'
-      });
-    } catch (error) {
-      console.error("Failed to generate campaign:", error);
-      const errorMessage = error.response?.data?.detail || "AI Campaign generation failed. Using default template.";
-      alert(errorMessage);
-      setCampaign({
-        id: null,
-        campaignName: goal,
-        copy: "Special VIP discount: Use code VIP15 for 15% off today!",
-        timing: '10 AM – 12 PM',
-        timingReason: 'Historically peak window.',
-        openRate: '75%',
-        ctr: '15%'
-      });
-    } finally {
-      setCompiling(false);
-      fetchUsage();
+      await fetch(
+        "https://xeno-reachable-ai-crm-channel.onrender.com/"
+      );
+      console.log("Channel Service Wakeup Triggered");
+    } catch (e) {
+      console.log("Wakeup Failed", e);
     }
-  };
+
+    const res = await crmApi.generateCampaign(goal, audience, channel);
+
+    const camp = res.campaign;
+    const copyData = res.copy;
+
+    setCampaign({
+      id: camp.id,
+      campaignName: camp.campaign_name,
+      copy: copyData.message_body || (channel === 'whatsapp'
+        ? copyData.whatsapp_message
+        : channel === 'email'
+          ? copyData.email_content
+          : copyData.sms_content),
+      timing: copyData.timing || 'Thursday at 2:00 PM',
+      timingReason: copyData.timing_reason || 'Peak activity window',
+      timingSource: copyData.timing_source || 'benchmark',
+      recommendedScheduledTime: copyData.recommended_scheduled_time || null,
+      openRate: copyData.predicted_open_rate || '75%',
+      ctr: copyData.predicted_ctr || '15%'
+    });
+
+  } catch (error) {
+    console.error("Failed to generate campaign:", error);
+    const errorMessage = error.response?.data?.detail || "AI Campaign generation failed. Using default template.";
+    alert(errorMessage);
+
+    setCampaign({
+      id: null,
+      campaignName: goal,
+      copy: "Special VIP discount: Use code VIP15 for 15% off today!",
+      timing: '10 AM – 12 PM',
+      timingReason: 'Historically peak window.',
+      openRate: '75%',
+      ctr: '15%'
+    });
+
+  } finally {
+    setCompiling(false);
+    fetchUsage();
+  }
+};
 
   const handleLaunch = async () => {
     if (!campaign) return;
