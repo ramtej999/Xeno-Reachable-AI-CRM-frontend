@@ -93,7 +93,7 @@ export default function Header({ navigate }) {
               textTransform: 'uppercase',
               marginTop: '0.2rem'
             }}>
-              Marketing CRM by XENO
+              AI-Powered Marketing CRM
             </div>
           </div>
         </div>
