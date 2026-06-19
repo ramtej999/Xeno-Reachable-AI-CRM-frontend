@@ -77,7 +77,7 @@ export default function Signup({ navigate }) {
               value={org}
               onChange={(e) => setOrg(e.target.value)}
               style={inputStyle}
-              placeholder="Xeno Retail Group"
+              placeholder="Reachable Retail Group"
               autoComplete="off"
             />
           </div>
@@ -89,7 +89,7 @@ export default function Signup({ navigate }) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               style={inputStyle}
-              placeholder="arjun@xeno.com"
+              placeholder="arjun@example.com"
               autoComplete="off"
             />
           </div>
