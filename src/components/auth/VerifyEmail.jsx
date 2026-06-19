@@ -8,7 +8,7 @@ export default function VerifyEmail({ navigate }) {
   const [error, setError] = useState('');
   const inputRefs = useRef([]);
 
-  const tempUser = JSON.parse(localStorage.getItem('reachable_signup_temp') || '{"email":"your email","name":"Demo User","org":"Xeno Retail Group"}');
+  const tempUser = JSON.parse(localStorage.getItem('reachable_signup_temp') || '{"email":"your email","name":"Demo User","org":"Reachable Retail Group"}');
 
   const handleChange = (index, value) => {
     if (isNaN(value)) return;
