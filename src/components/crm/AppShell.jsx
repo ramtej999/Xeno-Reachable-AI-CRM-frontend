@@ -89,7 +89,7 @@ export default function AppShell({ navigate }) {
           </div>
           <div>
             <div style={logoTextStyle}>REACHABLE <span style={{ color: 'var(--blue-primary)', fontWeight: 400 }}>AI</span></div>
-            <div style={logoSubTextStyle}>CRM BY XENO</div>
+            <div style={logoSubTextStyle}>Reachable AI CRM</div>
           </div>
         </div>
 
