@@ -55,7 +55,7 @@ export default function Footer() {
                   textTransform: 'uppercase',
                   marginTop: '0.15rem'
                 }}>
-                  by XENO
+                  by Reachable AI
                 </div>
               </div>
             </div>
@@ -120,7 +120,7 @@ export default function Footer() {
           color: 'var(--text-muted)'
         }}>
           <div>
-            &copy; {new Date().getFullYear()} Reachable AI by Xeno Inc. All rights reserved.
+            &copy; {new Date().getFullYear()} © {new Date().getFullYear()} Reachable AI. All rights reserved.
           </div>
           <div style={{ display: 'flex', gap: '1.5rem' }}>
             <span style={{ cursor: 'pointer', transition: 'color 0.2s' }}>Security Status</span>
